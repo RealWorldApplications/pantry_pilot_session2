@@ -51,10 +51,12 @@ class CameraErrorView extends StatelessWidget {
     super.key,
     required this.message,
     required this.onRetry,
+    this.onBypass,
   });
 
   final String message;
   final VoidCallback onRetry;
+  final VoidCallback? onBypass;
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +87,16 @@ class CameraErrorView extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             EmeraldButton(label: 'Try Again', onPressed: onRetry),
+            if (onBypass != null) ...[
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: onBypass,
+                child: const Text(
+                  'Bypass to Test Mode',
+                  style: TextStyle(color: kEmerald, fontWeight: FontWeight.w600),
+                ),
+              ),
+            ],
           ],
         ),
       ),
@@ -93,9 +105,14 @@ class CameraErrorView extends StatelessWidget {
 }
 
 class CameraUnsupportedView extends StatelessWidget {
-  const CameraUnsupportedView({super.key, required this.message});
+  const CameraUnsupportedView({
+    super.key,
+    required this.message,
+    this.onBypass,
+  });
 
   final String message;
+  final VoidCallback? onBypass;
 
   @override
   Widget build(BuildContext context) {
@@ -124,6 +141,16 @@ class CameraUnsupportedView extends StatelessWidget {
                 height: 1.5,
               ),
             ),
+            if (onBypass != null) ...[
+              const SizedBox(height: 24),
+              TextButton(
+                onPressed: onBypass,
+                child: const Text(
+                  'Bypass to Test Mode',
+                  style: TextStyle(color: kEmerald, fontWeight: FontWeight.w600),
+                ),
+              ),
+            ],
           ],
         ),
       ),

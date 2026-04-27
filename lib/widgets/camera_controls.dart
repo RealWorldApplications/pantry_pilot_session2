@@ -18,9 +18,13 @@ class ScanButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 60,
-      child: ElevatedButton(
-        onPressed: isScanning ? null : onPressed,
-        onLongPress: isScanning ? null : onLongPress,
+      child: Tooltip(
+        message: 'Long-press to bypass camera and test',
+        preferBelow: false,
+        verticalOffset: 36,
+        child: ElevatedButton(
+          onPressed: isScanning ? null : onPressed,
+          onLongPress: isScanning ? null : onLongPress,
         style: ElevatedButton.styleFrom(
           backgroundColor: kEmerald,
           disabledBackgroundColor: kEmerald.withValues(alpha: 0.45),
@@ -74,6 +78,7 @@ class ScanButton extends StatelessWidget {
                     ),
                   ],
                 ),
+        ),
         ),
       ),
     );

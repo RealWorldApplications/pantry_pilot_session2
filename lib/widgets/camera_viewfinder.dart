@@ -25,7 +25,7 @@ class ViewfinderFrame extends StatelessWidget {
           if (isScanning) ScanLine(frameHeight: size.height),
 
           // Four corner brackets
-          Positioned(
+          const Positioned(
             top: 0,
             left: 0,
             child: CornerBracket(
@@ -34,7 +34,7 @@ class ViewfinderFrame extends StatelessWidget {
               thick: bracketThick,
             ),
           ),
-          Positioned(
+          const Positioned(
             top: 0,
             right: 0,
             child: CornerBracket(
@@ -43,7 +43,7 @@ class ViewfinderFrame extends StatelessWidget {
               thick: bracketThick,
             ),
           ),
-          Positioned(
+          const Positioned(
             bottom: 0,
             left: 0,
             child: CornerBracket(
@@ -52,7 +52,7 @@ class ViewfinderFrame extends StatelessWidget {
               thick: bracketThick,
             ),
           ),
-          Positioned(
+          const Positioned(
             bottom: 0,
             right: 0,
             child: CornerBracket(
@@ -75,7 +75,8 @@ class ScanLine extends StatefulWidget {
   State<ScanLine> createState() => _ScanLineState();
 }
 
-class _ScanLineState extends State<ScanLine> with SingleTickerProviderStateMixin {
+class _ScanLineState extends State<ScanLine>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
   late final Animation<double> _anim;
 
@@ -86,9 +87,10 @@ class _ScanLineState extends State<ScanLine> with SingleTickerProviderStateMixin
       vsync: this,
       duration: const Duration(milliseconds: 900),
     )..repeat(reverse: true);
-    _anim = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _ctrl, curve: Curves.easeInOut),
-    );
+    _anim = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeInOut));
   }
 
   @override

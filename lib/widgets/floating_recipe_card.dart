@@ -130,11 +130,11 @@ class _FloatingRecipeCardState extends State<FloatingRecipeCard>
                 child: _maybeBackdropFilter(
                   child: Container(
                     decoration: BoxDecoration(
-                      // brand-architect: Opacity 0.2
+                      // brand-architect: Glassmorphism Opacity 0.2
                       color: kIsWeb
                           ? _kCharcoal.withValues(
                               alpha: 0.85,
-                            ) // Darker for web readability
+                            ) // Darker fallback for web readability
                           : Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(_kRadius),
                       border: Border.all(

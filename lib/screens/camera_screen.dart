@@ -106,6 +106,10 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
     super.dispose();
   }
 
+  void _bypassCamera() {
+    setState(() => _cameraState = _CameraState.ready);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,11 +119,13 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
         _CameraState.error => CameraErrorView(
             message: _errorMessage ?? 'An unknown error occurred.',
             onRetry: _retry,
+            onBypass: _bypassCamera,
           ),
         _CameraState.unsupported => CameraUnsupportedView(
             message: _errorMessage ?? 'Camera not supported on this platform.',
+            onBypass: _bypassCamera,
           ),
-        _CameraState.ready => PreviewView(controller: _controller!),
+        _CameraState.ready => PreviewView(controller: _controller),
       },
     );
   }
@@ -130,7 +136,7 @@ enum _CameraState { initializing, error, unsupported, ready }
 class PreviewView extends StatefulWidget {
   const PreviewView({super.key, required this.controller});
 
-  final CameraController controller;
+  final CameraController? controller;
 
   @override
   State<PreviewView> createState() => _PreviewViewState();
@@ -169,7 +175,10 @@ class _PreviewViewState extends State<PreviewView> with SingleTickerProviderStat
       if (testBytes != null) {
         bytes = testBytes;
       } else {
-        final xFile = await widget.controller.takePicture();
+        if (widget.controller == null) {
+          throw Exception('Camera bypassed. Long-press to test scan.');
+        }
+        final xFile = await widget.controller!.takePicture();
         bytes = await xFile.readAsBytes();
       }
 
@@ -231,7 +240,12 @@ class _PreviewViewState extends State<PreviewView> with SingleTickerProviderStat
       body: Stack(
         fit: StackFit.expand,
         children: [
-          CameraPreview(widget.controller),
+          if (widget.controller != null)
+            CameraPreview(widget.controller!)
+          else
+            const Center(
+              child: Icon(Icons.videocam_off_rounded, size: 64, color: Colors.white24),
+            ),
           DecoratedBox(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -294,7 +308,7 @@ class _PreviewViewState extends State<PreviewView> with SingleTickerProviderStat
                   ),
                 ),
                 const SizedBox(height: 16),
-                StatusChip(lensDirection: widget.controller.description.lensDirection),
+                StatusChip(lensDirection: widget.controller?.description.lensDirection ?? CameraLensDirection.back),
               ],
             ),
           ),
