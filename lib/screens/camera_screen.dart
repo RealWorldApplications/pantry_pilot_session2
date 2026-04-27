@@ -247,7 +247,7 @@ class _PreviewViewState extends State<PreviewView>
       body: Stack(
         fit: StackFit.expand,
         children: [
-          if (widget.controller != null)
+          if (widget.controller != null && widget.controller!.value.isInitialized)
             CameraPreview(widget.controller!)
           else
             const Center(
