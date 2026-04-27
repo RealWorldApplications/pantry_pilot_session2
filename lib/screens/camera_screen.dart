@@ -18,7 +18,8 @@ class CameraScreen extends StatefulWidget {
   State<CameraScreen> createState() => _CameraScreenState();
 }
 
-class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver {
+class _CameraScreenState extends State<CameraScreen>
+    with WidgetsBindingObserver {
   CameraController? _controller;
   _CameraState _cameraState = _CameraState.initializing;
   String? _errorMessage;
@@ -79,7 +80,9 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
   void _setError(String message, {bool isUnsupported = false}) {
     if (!mounted) return;
     setState(() {
-      _cameraState = isUnsupported ? _CameraState.unsupported : _CameraState.error;
+      _cameraState = isUnsupported
+          ? _CameraState.unsupported
+          : _CameraState.error;
       _errorMessage = message;
     });
   }
@@ -117,14 +120,14 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
       body: switch (_cameraState) {
         _CameraState.initializing => const CameraLoadingView(),
         _CameraState.error => CameraErrorView(
-            message: _errorMessage ?? 'An unknown error occurred.',
-            onRetry: _retry,
-            onBypass: _bypassCamera,
-          ),
+          message: _errorMessage ?? 'An unknown error occurred.',
+          onRetry: _retry,
+          onBypass: _bypassCamera,
+        ),
         _CameraState.unsupported => CameraUnsupportedView(
-            message: _errorMessage ?? 'Camera not supported on this platform.',
-            onBypass: _bypassCamera,
-          ),
+          message: _errorMessage ?? 'Camera not supported on this platform.',
+          onBypass: _bypassCamera,
+        ),
         _CameraState.ready => PreviewView(controller: _controller),
       },
     );
@@ -142,7 +145,8 @@ class PreviewView extends StatefulWidget {
   State<PreviewView> createState() => _PreviewViewState();
 }
 
-class _PreviewViewState extends State<PreviewView> with SingleTickerProviderStateMixin {
+class _PreviewViewState extends State<PreviewView>
+    with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late final AnimationController _pulseController;
   late final Animation<double> _pulseAnim;
@@ -200,7 +204,9 @@ class _PreviewViewState extends State<PreviewView> with SingleTickerProviderStat
           content: Text(e.toString()),
           backgroundColor: kCharcoal,
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRadius)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(kRadius),
+          ),
           margin: const EdgeInsets.fromLTRB(16, 0, 16, 24),
         ),
       );
@@ -210,7 +216,8 @@ class _PreviewViewState extends State<PreviewView> with SingleTickerProviderStat
   }
 
   Future<void> _onTestScan() async {
-    const url = 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=400&q=80';
+    const url =
+        'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=400&q=80';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
@@ -244,7 +251,11 @@ class _PreviewViewState extends State<PreviewView> with SingleTickerProviderStat
             CameraPreview(widget.controller!)
           else
             const Center(
-              child: Icon(Icons.videocam_off_rounded, size: 64, color: Colors.white24),
+              child: Icon(
+                Icons.videocam_off_rounded,
+                size: 64,
+                color: Colors.white24,
+              ),
             ),
           DecoratedBox(
             decoration: BoxDecoration(
@@ -261,12 +272,7 @@ class _PreviewViewState extends State<PreviewView> with SingleTickerProviderStat
               ),
             ),
           ),
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: const TopBar(),
-          ),
+          const Positioned(top: 0, left: 0, right: 0, child: TopBar()),
           Center(
             child: ViewfinderFrame(
               size: Size(size.width * 0.72, size.width * 0.72),
@@ -300,7 +306,9 @@ class _PreviewViewState extends State<PreviewView> with SingleTickerProviderStat
               mainAxisSize: MainAxisSize.min,
               children: [
                 ScaleTransition(
-                  scale: _isScanning ? const AlwaysStoppedAnimation(1.0) : _pulseAnim,
+                  scale: _isScanning
+                      ? const AlwaysStoppedAnimation(1.0)
+                      : _pulseAnim,
                   child: ScanButton(
                     isScanning: _isScanning,
                     onPressed: _onScan,
@@ -308,7 +316,11 @@ class _PreviewViewState extends State<PreviewView> with SingleTickerProviderStat
                   ),
                 ),
                 const SizedBox(height: 16),
-                StatusChip(lensDirection: widget.controller?.description.lensDirection ?? CameraLensDirection.back),
+                StatusChip(
+                  lensDirection:
+                      widget.controller?.description.lensDirection ??
+                      CameraLensDirection.back,
+                ),
               ],
             ),
           ),

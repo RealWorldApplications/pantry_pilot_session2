@@ -48,7 +48,9 @@ class TopBar extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(width: 48), // Maintain spacing where icon was if needed, or just nothing.
+          const SizedBox(
+            width: 48,
+          ), // Maintain spacing where icon was if needed, or just nothing.
         ],
       ),
     );

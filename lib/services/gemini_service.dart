@@ -44,8 +44,7 @@ class GeminiService {
   static const _modelId = 'gemini-3-flash-preview';
 
   // Standard prompt for clear images.
-  static String get _stdPrompt =>
-      '''
+  static String get _stdPrompt => '''
 You are a culinary AI assistant specialising in ingredient identification and safety.
 
 Examine the ingredient visible in this image.
@@ -65,8 +64,7 @@ Rules:
 ''';
 
   // vision-orchestrator rule 3: Active Investigation prompt for blurry images.
-  static String get _activeInvestigationPrompt =>
-      '''
+  static String get _activeInvestigationPrompt => '''
 ACTIVE INVESTIGATION MODE
 
 The image may be low quality. Examine colour, texture, shape.
@@ -91,15 +89,12 @@ Rules:
   // typically exceeds 50 KB. Below that threshold we activate investigation.
   static bool _isBlurry(Uint8List bytes) => bytes.lengthInBytes < 50 * 1024;
 
-
   // ── Core analysis ───────────────────────────────────────────────────────────
   /// Sends [imageBytes] (JPEG) to Gemini for ingredient analysis.
   ///
   /// - Uses Active Investigation automatically if the image appears blurry.
   /// - Retries with Active Investigation if the first response isn't valid JSON.
-  static Future<IngredientResult> analyze(
-    Uint8List imageBytes,
-  ) async {
+  static Future<IngredientResult> analyze(Uint8List imageBytes) async {
     final apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
     if (apiKey.isEmpty || apiKey == 'your_api_key_here') {
       throw Exception(
@@ -112,9 +107,7 @@ Rules:
     final blurry = _isBlurry(imageBytes);
 
     // vision-orchestrator rule 3: if blurry, skip directly to Active Investigation.
-    final firstPrompt = blurry
-        ? _activeInvestigationPrompt
-        : _stdPrompt;
+    final firstPrompt = blurry ? _activeInvestigationPrompt : _stdPrompt;
 
     final response = await model.generateContent([
       Content.multi([
@@ -127,9 +120,7 @@ Rules:
     debugPrint('Gemini Raw Response: $rawText');
 
     try {
-      final base = IngredientResult.fromJson(
-        _cleanAndParseJson(rawText),
-      );
+      final base = IngredientResult.fromJson(_cleanAndParseJson(rawText));
       return IngredientResult(
         item: base.item,
         recipe: base.recipe,

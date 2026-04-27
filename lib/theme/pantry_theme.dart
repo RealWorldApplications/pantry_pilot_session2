@@ -19,10 +19,7 @@ bool get isCameraSupported {
 class PantryTheme {
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: kCharcoal,
-    colorScheme: const ColorScheme.dark(
-      primary: kEmerald,
-      surface: kCharcoal,
-    ),
+    colorScheme: const ColorScheme.dark(primary: kEmerald, surface: kCharcoal),
     fontFamily: 'Roboto',
   );
 }

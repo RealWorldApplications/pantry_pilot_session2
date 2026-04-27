@@ -61,10 +61,7 @@ class GlassCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white.withValues(alpha: kGlassOpacity),
           borderRadius: radius,
-          border: Border.all(
-            color: kEmerald.withValues(alpha: 0.25),
-            width: 1,
-          ),
+          border: Border.all(color: kEmerald.withValues(alpha: 0.25), width: 1),
         ),
         child: child,
       ),

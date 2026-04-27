@@ -93,7 +93,10 @@ class CameraErrorView extends StatelessWidget {
                 onPressed: onBypass,
                 child: const Text(
                   'Bypass to Test Mode',
-                  style: TextStyle(color: kEmerald, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    color: kEmerald,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ],
@@ -147,7 +150,10 @@ class CameraUnsupportedView extends StatelessWidget {
                 onPressed: onBypass,
                 child: const Text(
                   'Bypass to Test Mode',
-                  style: TextStyle(color: kEmerald, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    color: kEmerald,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ],

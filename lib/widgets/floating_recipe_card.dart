@@ -206,8 +206,8 @@ class _FloatingRecipeCardState extends State<FloatingRecipeCard>
                         const _SectionHeader(label: 'Quick Recipe'),
                         const SizedBox(height: 16),
                         ...widget.result.recipe.asMap().entries.map(
-                              (e) => _RecipeStep(step: e.key + 1, text: e.value),
-                            ),
+                          (e) => _RecipeStep(step: e.key + 1, text: e.value),
+                        ),
                         const SizedBox(height: 28),
 
                         // ── Fun fact card ────────────────────────────────────────

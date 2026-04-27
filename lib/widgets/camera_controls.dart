@@ -25,60 +25,60 @@ class ScanButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: isScanning ? null : onPressed,
           onLongPress: isScanning ? null : onLongPress,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: kEmerald,
-          disabledBackgroundColor: kEmerald.withValues(alpha: 0.45),
-          foregroundColor: kCharcoal,
-          disabledForegroundColor: kCharcoal.withValues(alpha: 0.5),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kRadius),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kEmerald,
+            disabledBackgroundColor: kEmerald.withValues(alpha: 0.45),
+            foregroundColor: kCharcoal,
+            disabledForegroundColor: kCharcoal.withValues(alpha: 0.5),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(kRadius),
+            ),
+            elevation: 0,
+            shadowColor: kEmerald.withValues(alpha: 0.4),
           ),
-          elevation: 0,
-          shadowColor: kEmerald.withValues(alpha: 0.4),
-        ),
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 250),
-          child: isScanning
-              ? const Row(
-                  key: ValueKey('scanning'),
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(kCharcoal),
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 250),
+            child: isScanning
+                ? const Row(
+                    key: ValueKey('scanning'),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(kCharcoal),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 12),
-                    Text(
-                      'Scanning…',
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.3,
+                      SizedBox(width: 12),
+                      Text(
+                        'Scanning…',
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.3,
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              : const Row(
-                  key: ValueKey('ready'),
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.qr_code_scanner_rounded, size: 22),
-                    SizedBox(width: 10),
-                    Text(
-                      'Scan Ingredient',
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.3,
+                    ],
+                  )
+                : const Row(
+                    key: ValueKey('ready'),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.qr_code_scanner_rounded, size: 22),
+                      SizedBox(width: 10),
+                      Text(
+                        'Scan Ingredient',
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.3,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-        ),
+                    ],
+                  ),
+          ),
         ),
       ),
     );
